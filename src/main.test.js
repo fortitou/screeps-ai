@@ -5,6 +5,7 @@ var defend = require('core.defend');
 var familyWorker = require('family.worker');
 var familyWarrior = require('family.warrior');
 
+// from git
 
 const TASK_HARVEST = 'harvest';
 const TASK_REPAIR = 'repair';
