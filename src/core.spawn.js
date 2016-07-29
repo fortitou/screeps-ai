@@ -33,9 +33,9 @@ var coreSpawn = {
                 break;
             }
             let result = OK;
-            result = this.workers(spawn, [['harvester', 6], ['builder', 2], ['repairer', 2], ['upgrader', 2]]);
+            result = this.workers(spawn, [['harvester', 6], ['builder', 2], ['repairer', 2], ['upgrader', 2], ['towerer', 1]]);
             if (result == OK) {
-                result = this.workers(spawn, [['harvester', 7], ['builder', 4], ['repairer', 5], ['upgrader', 4]]);
+                result = this.workers(spawn, [['harvester', 7], ['builder', 4], ['repairer', 5], ['upgrader', 4], ['towerer', 1]]);
             }
             if (result == OK) {
                 this.soldier(spawn, 'soldier', 2);
@@ -87,10 +87,10 @@ var coreSpawn = {
                 }
                 for (i=0; i < 2 + ext/2; i++){
                     body_parts.push(TOUGH);
-                }                
+                }
                 for (i=0; i < 1 + ext/4; i++){
                     body_parts.push(MOVE);
-                }                
+                }
                 break;
             case 'archer':
                 break;
@@ -109,25 +109,25 @@ var coreSpawn = {
                 break;
             case -4:
                 console.log('Spawning of new creep (' + role + ') : delayed (spawn active)');
-                break;                    
+                break;
             default:
                 console.log('Spawning new creep: ' + newName + '(' + role + ')');
                 break;
         }
-        return OK;   
+        return OK;
     },
 
     workers: function(spawn, role_list) {
         // console.log('role_list: ' + role_list );
-        
+
         for(let i in role_list) {
             // console.log('role: ' + role );
-            
+
             var role = role_list[i][0];
             var number = role_list[i][1];
-            
+
             // console.log(creep_type + '(' + creep_number + ')' + ': ' + creep_current.length);
-            
+
             if(this.worker(spawn, role, number) == 1) {
                 return 1;
                 break;
@@ -153,16 +153,16 @@ var coreSpawn = {
                     break;
                 case 3:
                     var newName = spawn.createCreep([WORK,WORK,CARRY,CARRY,MOVE,MOVE], undefined, {role: role, family: 'worker'});
-                    break;                    
+                    break;
                 case 4:
                     var newName = spawn.createCreep([WORK,WORK,WORK,CARRY,CARRY,MOVE,MOVE], undefined, {role: role, family: 'worker'});
-                    break;  
+                    break;
                 case 5:
                     var newName = spawn.createCreep([WORK,WORK,WORK,CARRY,CARRY,MOVE,MOVE], undefined, {role: role, family: 'worker'});
                     break;
                 default:
                     var newName = spawn.createCreep([WORK,WORK,WORK,WORK,CARRY,CARRY,MOVE,MOVE], undefined, {role: role, family: 'worker'});
-                    break;                    
+                    break;
             }
             switch(newName) {
                 case -6:
@@ -170,13 +170,13 @@ var coreSpawn = {
                     break;
                 case -4:
                     console.log('Spawning of new creep (' + role + ') : delayed (spawn active)');
-                    break;                    
+                    break;
                 default:
                     console.log('Spawning new creep: ' + newName + '(' + role + ')');
                     break;
             }
             return 1;
-        }        
+        }
     },
     soldier: function(spawn, role, requested_number) {
         let current = _.filter(Game.creeps, (creep) => creep.memory.role == role);

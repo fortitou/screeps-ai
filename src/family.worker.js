@@ -21,7 +21,7 @@ var familyWorker = {
             creep.memory.chosen_source = null;
         }
         */
-        
+
         // state machine assignments
         if(creep.memory.working && creep.carry.energy == 0) {
             creep.memory.working = false;
@@ -31,7 +31,7 @@ var familyWorker = {
 	        creep.memory.working = true;
 	        creep.memory.chosen_source = null;
 	    }
-	    
+
 	    // work !
 	    if(creep.memory.working) {
             if(creep.memory.role == 'harvester') {
@@ -46,9 +46,12 @@ var familyWorker = {
             if(creep.memory.role == 'repairer') {
                 roleRepairer.work(creep);
             }
+            if(creep.memory.role == 'towerer') {
+                roleHarvester.fillTowers(creep);
+            }
 	    } else {
 	        // or get energy
-	        
+
 	        // dropped energy
 	        if(creep.memory.role == 'harvester') {
                 let dropped_energy_list = creep.room.find(FIND_DROPPED_ENERGY);
@@ -58,22 +61,22 @@ var familyWorker = {
                         creep.moveTo(chosen_energy);
                         return OK;
                     }
-                
+
                 }
             }
-            
+
             // energy from source
 	        if(!creep.memory.chosen_source) {
 	            let chosen_source = null;
 	            chosen_source = creep.pos.findClosestByPath(FIND_SOURCES,{
                     filter: object => object.energy > 0
                 });
-	            if (!chosen_source) { 
+	            if (!chosen_source) {
 	                chosen_source = creep.pos.findClosestByRange(FIND_SOURCES,{
                         filter: object => object.energy > 0
                     });
 	            }
-	            if (!chosen_source) { 
+	            if (!chosen_source) {
 	                chosen_source = creep.pos.findClosestByRange(FIND_SOURCES);
 	            }
                 creep.memory.chosen_source = chosen_source.id;
