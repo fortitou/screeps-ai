@@ -102,7 +102,7 @@ var coreSpawn = {
         if (!isEnoughSpawnExtensions(max_energy, bodyParts)){
             console.log(spawn + 'cannot spawn creep with body ' + bodyParts + ' : not enough energy available. extensions: ' + ext)
         }
-        var newName = spawn.createCreep(bodyParts, undefined, {role: role, family: 'worker'});
+        var newName = spawn.createCreep(bodyParts, undefined, {role: role, family: 'worker', spawnRoom: spawn.room.name});
         switch(newName) {
             case -6:
                 console.log('Spawning of new creep (' + role + ') : delayed (short ressources)');
